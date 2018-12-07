@@ -4,17 +4,19 @@
  */
 public class SortTests {
 
+  /**
+   * Runs sort tests
+   * @param args the command line arguments
+   */
   public static void main(String[] args) {
-    try {
-      mergeSortTest();
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    mergeSortTest();
   }
   
-  public static void mergeSortTest() throws InterruptedException {
-    Integer[] sortable = new Integer[100];
+  /**
+   * Runs the merge sort algorithm and prints out the process
+   */
+  public static void mergeSortTest() {
+    Integer[] sortable = new Integer[50];
     for (int i = 0; i < sortable.length; i++) {
       sortable[i] = (int)(Math.random() * 100);
     }

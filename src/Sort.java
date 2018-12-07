@@ -4,8 +4,14 @@
  */
 public class Sort <T extends Comparable<T>> {
 
-  @SuppressWarnings("unchecked")
-  public static <T extends Comparable<T>>void mergeSort(T[] sortable, int spaces) throws InterruptedException {
+  /**
+   * Sorts a comparable array and prints out the process.
+   * 
+   * @param sortable The array to be sorted
+   * @param spaces The amount of spaces to be printed before the array
+   * (more if the array is deeper in the call stack)
+   */
+  public static <T extends Comparable<T>>void mergeSort(T[] sortable, int spaces) {
     if (sortable.length > 1) {
       //Splits the array into two parts
       int middle = sortable.length / 2;
@@ -18,6 +24,7 @@ public class Sort <T extends Comparable<T>> {
         secondHalf[i - middle] = sortable[i];
       }
       
+      //Prints out the split array before sorting
       if (sortable.length > 2) {
         for (int i = 0; i <= spaces; i++) {
           System.out.print(" ");
@@ -26,11 +33,10 @@ public class Sort <T extends Comparable<T>> {
       }
         
       //Sorts the halves of the array independently
-      Thread.sleep(5);
       mergeSort(firstHalf, spaces + 2);
-      Thread.sleep(5);
       mergeSort(secondHalf, spaces + 2);
       
+      //Prints out the split array after sorting
       if (sortable.length > 2) {
         for (int i = 0; i <= spaces; i++) {
           System.out.print(" ");
