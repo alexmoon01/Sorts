@@ -97,6 +97,34 @@ public class Sort {
   }
   
   /**
+   * Sorts a comparable array using the insertion sort algorithm.
+   * @param sortable The array to be sorted
+   */
+  public static <T extends Comparable<T>> void insertionSort(T[] sortable) {
+    for (int i = 0; i < sortable.length; i++) {
+      //Finding the index and value of the minimum unsorted value of the array
+      int minInRange = minOf(sortable, i, sortable.length - 1);
+      T minVal = sortable[minInRange];
+      
+      //Pushing the remainder of the unsorted portion of array up
+      for (int j = minInRange; j > i; j--) {
+        sortable[j] = sortable[j - 1]; 
+      }
+      
+      //Inserting the minValue into the appropriate location in the sorted portion of array
+      sortable[i] = minVal;
+      for (int k = i; k > 0; k--) {
+        if (minOf(sortable[k], sortable[k - 1]) == sortable[k]) {
+          swapInArray(sortable, k, k - 1);
+        } else {
+          break;
+        }
+      }
+      System.out.println(SortTests.asString(sortable));
+    }
+  }
+  
+  /**
    * Helper method which finds the minimum of two comparable objects
    * @param first The first object to be analyzed
    * @param second The second object to be analyzed
@@ -131,5 +159,41 @@ public class Sort {
       }
     }
     return minIndex;
+  }
+
+  /**
+   * Helper method which finds the min of an array within certain bounds.
+   * @param array The array to be searched through.
+   * @param start The start index of the searched section.
+   * @param end The end index of the searched section
+   * @return The index of the minimum value in the selected range.
+   */
+  private static <T extends Comparable<T>> int minOf(T[] array, int start, int end) {
+    int minIndex = start;
+    for (int i = start; i <= end; i++) {
+    //Finds the first non-null element in the array
+      if (array[minIndex] == null) {
+        minIndex = i;
+      } else if (array[i] != null){
+        //If the currently searched location is less than min, 
+        //the new min is this location
+        if (minOf(array[minIndex], array[i]) == array[i]) {
+          minIndex = i;
+        }
+      }
+    }
+    return minIndex;
+  }
+
+  /**
+   * Helper method that swaps two data at specified indices.
+   * @param array The array that we're operating it.
+   * @param firstIndex The index of the first swapee.
+   * @param secondIndex The index of the second swapee.
+   */
+  private static <T> void swapInArray(T[] array, int firstIndex, int secondIndex) {
+    T temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
   }
 }

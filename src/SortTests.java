@@ -9,25 +9,41 @@ public class SortTests {
    * @param args the command line arguments
    */
   public static void main(String[] args) {
-    selectionSortTest();
+    Integer[] sortable = randArray(20, 0, 100);
+    mergeSortTest(copyArray(sortable));
+    System.out.println("\n\n\n\n");
+    selectionSortTest(copyArray(sortable));
+    System.out.println("\n\n\n\n");
+    insertionSortTest(copyArray(sortable));
   }
   
   /**
    * Runs the merge sort algorithm and prints out the process
    */
-  public static void mergeSortTest() {
-    Integer[] sortable = randArray(100, 0, 100);
+  public static void mergeSortTest(Integer[] sortable) {
     System.out.println("Testing Merge:");
     System.out.println("Starting array: " + asString(sortable));
     Sort.mergeSort(sortable, 0);
     System.out.println("Sorted array: " + asString(sortable));
   }
   
-  public static void selectionSortTest() {
-    Integer[] sortable = randArray(20, 0, 100);
+  /**
+   * Runs the selection sort algorithm and prints out the process
+   */
+  public static void selectionSortTest(Integer[] sortable) {
     System.out.println("Testing Selection Sort:");
     System.out.println("Starting array: " + asString(sortable));
     Sort.selectionSort(sortable);
+    System.out.println("Sorted array: " + asString(sortable));
+  }
+  
+  /**
+   * Runs the insertion sort algorithm and prints out the process.
+   */
+  public static void insertionSortTest(Integer[] sortable) {
+    System.out.println("Testing Insertion Sort:");
+    System.out.println("Starting array: " + asString(sortable));
+    Sort.insertionSort(sortable);
     System.out.println("Sorted array: " + asString(sortable));
   }
   
@@ -44,6 +60,20 @@ public class SortTests {
     asString = asString.substring(0, asString.length() - 2);
     asString += "]";
     return asString;
+  }
+  
+  /**
+   * Creates a deep copy of an array.
+   * @param array The array to be copied.
+   * @return A deep copy of the array.
+   */
+  @SuppressWarnings("unchecked")
+  private static Integer[] copyArray(Integer[] array) {
+    Integer[] returnable = new Integer[array.length];
+    for (int i = 0; i < array.length; i++) {
+      returnable[i] = array[i];
+    }
+    return returnable;
   }
   
   /**
