@@ -143,15 +143,12 @@ public class Sort {
       for (int i = 0; i < spaces; i++) {
         System.out.print(" ");
       }
-      try {
-        Thread.sleep(10);
-      } catch (InterruptedException e) {
-        System.exit(1);
-      }
       System.out.println(SortTests.asString(sortable, min, max) + " P = " + 
           sortable[medianIndex(sortable, min, (min + max) / 2, max)]);
+      
       //Partitions the array
       int newMedianIndex = qPartition(sortable, min, max, medianIndex(sortable, min, (min + max) / 2, max));
+      
       //Sorts the partitioned halves
       if (max - min > 1) {
         quickSort(sortable, min, newMedianIndex - 1, spaces + 2);
