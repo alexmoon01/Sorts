@@ -30,21 +30,12 @@ public class Sort {
         for (int i = 0; i <= spaces; i++) {
           System.out.print(" ");
         }
-        System.out.println(SortTests.asString(firstHalf) + SortTests.asString(secondHalf)  + ":");
+        System.out.println(SortTests.asString(firstHalf) + SortTests.asString(secondHalf));
       }
         
       //Sorts the halves of the array independently
       mergeSort(firstHalf, spaces + 2);
       mergeSort(secondHalf, spaces + 2);
-      
-      //Prints out the split array after sorting
-      if (sortable.length > 2) {
-        for (int i = 0; i <= spaces; i++) {
-          System.out.print(" ");
-        }
-        System.out.println(SortTests.asString(firstHalf) + SortTests.asString(secondHalf));
-      }
-
       
       //Merges the sorted arrays
       int i = 0;
