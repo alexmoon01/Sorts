@@ -15,6 +15,8 @@ public class SortTests {
     selectionSortTest(copyArray(sortable));
     System.out.println("\n\n\n\n");
     insertionSortTest(copyArray(sortable));
+    System.out.println("\n\n\n\n");
+    quickSortTest(copyArray(sortable));
   }
   
   /**
@@ -47,6 +49,13 @@ public class SortTests {
     System.out.println("Sorted array: " + asString(sortable));
   }
   
+  public static void quickSortTest(Integer[] sortable) {
+    System.out.println("Testing Quick Sort:");
+    System.out.println("Starting array: " + asString(sortable));
+    Sort.quickSort(sortable, 0, sortable.length - 1, 0);
+    System.out.println("Sorted array: " + asString(sortable));
+  }
+  
   /**
    * Prints an array as a string.
    * @param array The array to be printed.
@@ -62,12 +71,21 @@ public class SortTests {
     return asString;
   }
   
+  public static <T> String asString(T[] array, int min, int max) {
+    String asString = "[";
+    for (int i = min; i <= max; i++) {
+      asString+= "" + array[i] + ", ";
+    }
+    asString = asString.substring(0, asString.length() - 2);
+    asString += "]";
+    return asString;
+  }
+  
   /**
    * Creates a deep copy of an array.
    * @param array The array to be copied.
    * @return A deep copy of the array.
    */
-  @SuppressWarnings("unchecked")
   private static Integer[] copyArray(Integer[] array) {
     Integer[] returnable = new Integer[array.length];
     for (int i = 0; i < array.length; i++) {
