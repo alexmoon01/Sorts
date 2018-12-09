@@ -5,7 +5,7 @@
 public class SortTests {
 
   /**
-   * Runs sort tests
+   * Runs sort tests. Tests all methods on the same array for consistency.
    * @param args the command line arguments
    */
   public static void main(String[] args) {
@@ -21,9 +21,10 @@ public class SortTests {
   
   /**
    * Runs the merge sort algorithm and prints out the process
+   * @param sortable The test array that will be sorted.
    */
   public static void mergeSortTest(Integer[] sortable) {
-    System.out.println("Testing Merge:");
+    System.out.println("Testing Merge Sort:");
     System.out.println("Starting array: " + asString(sortable));
     Sort.mergeSort(sortable, 0);
     System.out.println("Sorted array: " + asString(sortable));
@@ -31,6 +32,7 @@ public class SortTests {
   
   /**
    * Runs the selection sort algorithm and prints out the process
+   * @param sortable The test array that will be sorted.
    */
   public static void selectionSortTest(Integer[] sortable) {
     System.out.println("Testing Selection Sort:");
@@ -41,6 +43,7 @@ public class SortTests {
   
   /**
    * Runs the insertion sort algorithm and prints out the process.
+   * @param sortable The test array that will be sorted.
    */
   public static void insertionSortTest(Integer[] sortable) {
     System.out.println("Testing Insertion Sort:");
@@ -49,6 +52,10 @@ public class SortTests {
     System.out.println("Sorted array: " + asString(sortable));
   }
   
+  /**
+   * Runs the quick sort algorithm and prints out the process
+   * @param sortable The test array that will be sorted.
+   */
   public static void quickSortTest(Integer[] sortable) {
     System.out.println("Testing Quick Sort:");
     System.out.println("Starting array: " + asString(sortable));
@@ -73,6 +80,9 @@ public class SortTests {
   
   public static <T> String asString(T[] array, int min, int max) {
     String asString = "[";
+    if (min > max || min > array.length - 1) {
+      return "[]";
+    }
     for (int i = min; i <= max; i++) {
       asString+= "" + array[i] + ", ";
     }
