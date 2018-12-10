@@ -7,4 +7,4 @@ Format: \<Type\>, \<Memory efficiency\>, \<Done\>
   2. Selection Sort, O(n^2), Yes
   3. Insertion Sort, O(n^2), Yes
   4. Quick Sort, O(n\*log(n)), Yes
-  5. Heap Sort, O(n\*log(n)), No
+  5. Heap Sort, O(n\*log(n)), Yes
