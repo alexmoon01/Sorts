@@ -17,6 +17,8 @@ public class SortTests {
     insertionSortTest(copyArray(sortable));
     System.out.println("\n\n\n\n");
     quickSortTest(copyArray(sortable));
+    System.out.println("\n\n\n\n");
+    heapSortTest(copyArray(sortable));
   }
   
   /**
@@ -60,6 +62,13 @@ public class SortTests {
     System.out.println("Testing Quick Sort:");
     System.out.println("Starting array: " + asString(sortable));
     Sort.quickSort(sortable, 0, sortable.length - 1, 0);
+    System.out.println("Sorted array: " + asString(sortable));
+  }
+  
+  public static void heapSortTest(Integer[] sortable) {
+    System.out.println("Testing Heap Sort:");
+    System.out.println("Starting array: " + asString(sortable));
+    Sort.heapSort(sortable);
     System.out.println("Sorted array: " + asString(sortable));
   }
   

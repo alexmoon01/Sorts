@@ -150,6 +150,119 @@ public class Sort {
   }
   
   /**
+   * Sorts a comparable array using the heap sort algorithm.
+   * @param <T> The comparable type of the members of the array
+   * @param sortable The array to be sorted.
+   */
+  public static <T extends Comparable<T>> void heapSort(T[] sortable) {
+    System.out.println("Heapifying:");
+    T[] heap = heapify(sortable);
+    System.out.println("Sorting:");
+    for (int i = 0; heap[0] != null; i++) {
+      sortable[i] = removeTop(heap);
+      System.out.println("Sorted array: " + SortTests.asString(sortable, 0, i) + 
+          "    Heap: " + SortTests.asString(heap, 0, heap.length - 2 - i));
+    }
+  }
+  
+  /**
+   * Returns a heapified version of the input array.
+   * @param <T> The comparable type of the members of the array
+   * @param heapifiable The array to be heapified.
+   */
+  @SuppressWarnings("unchecked")
+  private static <T extends Comparable<T>> T[] heapify(T[] heapifiable) {
+    //Instantiates the heapified version
+    T[] heapified = (T[])(new Comparable[heapifiable.length]);
+    //Heapifies as it copies the old array to the new one
+    for (int i = 0; i < heapified.length; i++) {
+      heapified[i] = heapifiable[i];
+      percolateUp(heapified, i);
+      System.out.println(SortTests.asString(heapified, 0, i));
+    }
+    return heapified;
+  }
+  
+  /**
+   * Removes the first index of the input. Assumes min heap property satisfied.
+   * @param <T> The comparable type of the members of the array
+   * @param heap The heap to be affected
+   * @param heapSize the size of the heap within the array
+   * @return The top item in the heap
+   */
+  private static <T extends Comparable<T>> T removeTop(T[] heap) {
+    //The value to be returned. The rest of the method is
+    //removing this value while maintaining the minheap property.
+    T top = heap[0];
+    //Finds the size of the heap
+    int heapSize;
+    for (heapSize = heap.length - 1; heapSize > 0 && heap[heapSize] == null; heapSize--);
+    
+    //Puts the top of the heap at the bottom
+    swapInArray(heap, 0, heapSize);
+    //Removes the former top post
+    heap[heapSize] = null;
+    
+    //Rearranges heap to maintain minheap property
+    percolateDown(heap);
+    return top;
+  }
+  
+  /**
+   * Percolates the nth of the heap up into the appropriate position (min heap property).
+   * @param <T> The comparable type of the members of the array
+   * @param heap The heap to be organized.
+   * @param index The index of the element to be percolated up.
+   */
+  private static <T extends Comparable<T>> void percolateUp(T[] heap, int index) {
+    int percIndex = index;
+    //While the parent is greater than the child
+    while (minOf(heap[percIndex], heap[(percIndex - 1) / 2]) == heap[percIndex]) {
+      if (percIndex == 0) {
+        break;
+      }
+      //Swaps the parent and child, satisfying the minHeap requirement
+      swapInArray(heap, percIndex, (percIndex - 1) / 2);
+      percIndex = (percIndex - 1) / 2;
+    }
+  }
+  
+  /**
+   * Percolates the top term down to the appropriate term position (min heap property)
+   * @param <T> The comparable type of the members of the array
+   * @param heap The heap to be organized.
+   */
+  private static <T extends Comparable<T>> void percolateDown(T[] heap) {
+    int percIndex = 0;
+    int leftChildIndex = (percIndex * 2) + 1;
+    int rightChildIndex = (percIndex * 2) + 2;
+    //While the children exist and the smallest child is lesser than the parent
+    while (minOf(minOf(heap[leftChildIndex], heap[rightChildIndex]), 
+        heap[percIndex]) != heap[percIndex]) {
+      int minChildIndex;
+      //Finds the index of the minimum child of the current index
+      if (minOf(heap[leftChildIndex], heap[rightChildIndex]) == heap[leftChildIndex]) {
+        minChildIndex = leftChildIndex;
+      } else {
+        minChildIndex = rightChildIndex;
+      }
+      //Swaps the current focus with its minimum child
+      swapInArray(heap, percIndex, minChildIndex);
+      //Sets new locations for parent and two children
+      percIndex = minChildIndex;
+      leftChildIndex = (percIndex * 2) + 1;
+      rightChildIndex = (percIndex * 2) + 2;
+      //If current index has no children, 
+      if (leftChildIndex >= heap.length || heap[leftChildIndex] == null) {
+        break;
+      }
+      if (rightChildIndex >= heap.length || heap[rightChildIndex] == null) {
+        rightChildIndex = leftChildIndex;
+      }
+    }
+  }
+  
+  /**
    * Partitions a range in an array for quickSort based off of the partition value
    * @param <T> The comparable type of the members of the array
    * @param sortable The array to be partitioned
@@ -214,7 +327,13 @@ public class Sort {
    * @return The minimum of the two objects; second if they're equal
    */
   private static <T extends Comparable<T>> T minOf(T first, T second) {
-    if (first.compareTo(second) < 0) {
+    if (second == null && first == null) {
+      return null;
+    } else if (second == null) {
+      return first;
+    } else if (first == null) {
+      return second;
+    } else if (first.compareTo(second) < 0) {
       return first;
     } else {
       return second;
