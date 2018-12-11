@@ -70,22 +70,14 @@ public class Sort {
    * @param sortable The array to be sorted
    */
   @SuppressWarnings("unchecked")
-  public static <T extends Comparable<T>> void selectionSort(T[] sortable) {
-    //Creates a new array of the same length as sortable
-    T[] sorted = (T[])(new Comparable[sortable.length]);
-    
+  public static <T extends Comparable<T>> void selectionSort(T[] sortable) {    
     //Iterates through sortable, putting the elements into sorted in order
-    for (int i = 0; i < sorted.length; i++) {
-      int minIndex = minOf(sortable);
-      sorted[i] = sortable[minIndex];
-      sortable[minIndex] = null;
-      //Prints out current progress
-      System.out.println("  " + SortTests.asString(sortable) + ":          " + SortTests.asString(sorted, 0, i));
-    }
-    
-    //Sets the sortable array to be the new sorted version
     for (int i = 0; i < sortable.length; i++) {
-      sortable[i] = sorted[i];
+      int minIndex = minOf(sortable, i, sortable.length - 1);
+      swapInArray(sortable, i, minIndex);
+      //Prints out current progress
+      System.out.println("" + SortTests.asString(sortable, i + 1, sortable.length - 1) +
+          ":    " + SortTests.asString(sortable, 0, i));
     }
   }
   
@@ -338,30 +330,6 @@ public class Sort {
     } else {
       return second;
     }
-  }
-  
-  /**
-   * Helper method which finds the minimum of an array.<br>
-   * Returns 0 if no non-null elements.
-   * @param <T> The comparable type of the members of the array
-   * @param array The array to be searched through.
-   * @return The index of the minimum object in the array.
-   */
-  private static <T extends Comparable<T>> int minOf(T[] array) {
-    int minIndex = 0;
-    for (int i = 1; i < array.length; i++) {
-      //Finds the first non-null element in the array
-      if (array[minIndex] == null) {
-        minIndex = i;
-      } else if (array[i] != null){
-        //If the currently searched location is less than min, 
-        //the new min is this location
-        if (minOf(array[minIndex], array[i]) == array[i]) {
-          minIndex = i;
-        }
-      }
-    }
-    return minIndex;
   }
 
   /**
