@@ -88,22 +88,10 @@ public class Sort {
    */
   public static <T extends Comparable<T>> void insertionSort(T[] sortable) {
     for (int i = 0; i < sortable.length; i++) {
-      //Finding the index and value of the minimum unsorted value of the array
-      int minInRange = minOf(sortable, i, sortable.length - 1);
-      T minVal = sortable[minInRange];
-      
-      //Pushing the remainder of the unsorted portion of array up
-      for (int j = minInRange; j > i; j--) {
-        sortable[j] = sortable[j - 1]; 
-      }
-      
-      //Inserting the minValue into the appropriate location in the sorted portion of array
-      sortable[i] = minVal;
-      for (int k = i; k > 0; k--) {
-        if (minOf(sortable[k], sortable[k - 1]) == sortable[k]) {
-          swapInArray(sortable, k, k - 1);
-        } else {
-          break;
+      //Finding the correct index for the first value in the unsorted portion
+      if (i > 0) {
+        if (minOf(sortable[i], sortable[i - 1]) == sortable[i]) {
+          swapInArray(sortable, i, i - 1);
         }
       }
       System.out.println(SortTests.asString(sortable, 0, i) + ":    " + 
